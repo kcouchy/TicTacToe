@@ -1,17 +1,24 @@
 import random
+import time
 
 def display_board(board):
     # The function accepts one parameter containing the board's current status
     # and prints it out to the console.
+    bd = []
     top_row = 3*("+" + 7 * "-") + "+"
     empty_row = 3*("|" + 7 * " ") + "|"
     for line in board:
-        print(top_row, empty_row, sep="\n")
+        bd.append(top_row)
+        bd.append(empty_row)
+        num_line = ""
         for column in line:
-            print("|  ", column, "  ", end="")
-        print("|", empty_row, sep="\n")
-    print(top_row)
-
+            num_line += "|   " + str(column) + "   "
+        num_line += "|"
+        bd.append(num_line)
+        bd.append(empty_row)
+    bd.append(top_row)
+    print('\n'.join(bd))
+        
 
 def enter_move(board):
     move = False
@@ -63,6 +70,7 @@ def draw_move(board):
     if not free_fields:
         print("Game over: no winner")
         return False
+    time.sleep(1)
     print("Computer's move (X):")
     random_field = random.choice(free_fields)
     board[random_field[0]][random_field[1]] = "X"
