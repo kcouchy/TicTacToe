@@ -17,10 +17,10 @@ def enter_move(board):
     move = False
     while move == False:
         try:
-            pos = int(input("Enter position to place your piece:"))
+            pos = int(input("Enter position to place your piece (O):"))
             for i, row in enumerate(board):
                 if pos in row:
-                    board[i][row.index(pos)] = 0
+                    board[i][row.index(pos)] = "O"
                     move = True
             if move == False:
                 print("Invalid move")
@@ -35,7 +35,7 @@ def make_list_of_free_fields(board):
     free_fields = []
     for row_index, row in enumerate(board):
         for col_index, square in enumerate(row):
-            if square != 0 and square != "X":
+            if square != "O" and square != "X":
                 free_fields.append((row_index, col_index))
     return free_fields
     # The function browses the board and builds a list of all the free squares; 
@@ -63,7 +63,7 @@ def draw_move(board):
     if not free_fields:
         print("Game over: no winner")
         return False
-    print("Computer's move:")
+    print("Computer's move (X):")
     random_field = random.choice(free_fields)
     board[random_field[0]][random_field[1]] = "X"
     display_board(board)
@@ -74,7 +74,7 @@ board = [[1,2,3], [4,5,6], [7,8,9]]
 display_board(board)
 while True:
     enter_move(board)
-    if victory_for(board, 0) == True:
+    if victory_for(board, "O") == True:
         print("Game over: Player wins!")
         break
     if draw_move(board) == False:
